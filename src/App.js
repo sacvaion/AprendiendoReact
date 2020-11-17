@@ -3,35 +3,25 @@ import React, { useEffect } from 'react';
 import './assets/css/App.css';
 //importar componentes
 import MiComponente from './components/MiComponente';
-
+import PokemonsList from './components/PokemonsList';
+import Pokedex from './components/CapturedPokemons';
+import { useContext } from 'react';
+import { PokemonContext } from './components/PokemonContext';
+import { useState } from 'react';
 function App() {
 
-  const [result, setResult] = React.useState([]);
-  const [poke, setPoke] = React.useState([]);
-  const [load, setLoad] = React.useState('true');
-  const arr = [];
+  const [pokemons] = useState([
+    { id: 1, name: 'Bulbasaur' },
+    { id: 2, name: 'Charmander' },
+    { id: 3, name: 'Squirtle' }
+  ]);
   
-  useEffect(() => {
-  fetch('https://pokeapi.co/api/v2/pokemon/?limit=200')
-      .then((response) => response.json())
-      .then((data) => setResult(
-        data.results.map((item) => {
-          fetch(item.url)
-            .then((response) => response.json())
-            .then((allpokemon) => arr.push(allpokemon));
-            setPoke(arr);
-        }),
-      ));
-  }, []);
 
-   setTimeout(() => {
-     setLoad(false);
-     console.log(poke)
-   }, 1000);
+  
 
 
   return (
-    <div className="App">
+    /*<div className="App">
        <div className='pokegallery'>
         { load ? (
           <p>Loading...</p>
@@ -51,6 +41,12 @@ function App() {
           ))
         )}
       </div>
+    </div>*/
+    <div className="App">
+        <div className="App">
+          <PokemonsList />
+          <Pokedex />
+        </div>
     </div>
   );
 }
