@@ -1,5 +1,8 @@
 import React, { useState,useEffect } from 'react';
-
+import {
+  Card, CardImg, CardText, CardBody,
+  CardTitle, CardSubtitle, Button
+} from 'reactstrap';
 const CapturedPokemons = () => {
   const [pokemons] = useState([]);
   const [result, setResult] = React.useState([]);
@@ -8,7 +11,7 @@ const CapturedPokemons = () => {
   const arr = [];
   
   useEffect(() => {
-    fetch('https://pokeapi.co/api/v2/pokemon/?limit=200')
+    fetch('https://pokeapi.co/api/v2/pokemon/?limit=3')
         .then((response) => response.json())
         .then((data) => setResult(
           data.results.map((item) => {
@@ -44,14 +47,14 @@ const CapturedPokemons = () => {
 
       poke.map((img, i) => (
         <div id={img.id} key={img.id}>
-
-          <div className='card' style={{ width: '10rem', height: '15rem', backgroundColor: '#F0F0C9' }}>
-            <img  src={img.sprites.front_default} alt='pokemon' />
-            <div >
-              <h5 >{img.name}</h5>
-              <h6>type: {img.types[0].type.name}</h6>
-            </div>
-          </div>
+              <Card style= {{ width: '15rem' }} >
+                <CardImg src={img.sprites.front_default}  style={{ width: '15rem', height: '15rem', backgroundColor: '#F0F0C9'}}/>
+                <CardBody>
+                  <CardTitle tag="h5">{img.name}</CardTitle>
+                  <CardSubtitle tag="h6" className="mb-2 text-muted">type: {img.types[0].type.name}</CardSubtitle>
+                  <CardText>----</CardText>
+                </CardBody>
+              </Card>
         </div>
       ))
     )}
